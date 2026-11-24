@@ -1,3 +1,4 @@
 # GitHub Sponsors 配置：仓库页面会显示「Sponsor this project」按钮
-# 支持的平台见 https://github.com/github/funding.yml-config
-afdian: canvay
+# 支持的平台见 https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/displaying-a-sponsor-button-in-your-repository
+# 爱发电不在官方支持列表中，使用 custom 方式；URL 含冒号必须加引号
+custom: ["https://afdian.com/a/canvay"]
