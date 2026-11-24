@@ -2,21 +2,21 @@
   "$schema": "https://prosefly.dev/schema/lotus.json",
   "name": "TVBox Coach",
   "description": "TVBox 配置说明、核心概念介绍，以及一些帮助使用的浏览器端小工具。",
-  "favicon": "/favicon.svg",
-  "logo": "/favicon.svg",
+  "favicon": "/tvbox_coach/favicon.svg",
+  "logo": "/tvbox_coach/favicon.svg",
   "docsBase": "/tutorials",
   "siteNav": [
     {
       "label": "首页",
-      "href": "/"
+      "href": "/tvbox_coach/"
     },
     {
       "label": "工具箱",
-      "href": "/tools/"
+      "href": "/tvbox_coach/tools/"
     },
     {
       "label": "使用教程",
-      "href": "/tutorials/"
+      "href": "/tvbox_coach/tutorials/"
     }
   ],
   "socials": [
@@ -51,15 +51,15 @@
         "links": [
           {
             "label": "首页",
-            "href": "/"
+            "href": "/tvbox_coach/"
           },
           {
             "label": "工具箱",
-            "href": "/tools/"
+            "href": "/tvbox_coach/tools/"
           },
           {
             "label": "使用教程",
-            "href": "/tutorials/"
+            "href": "/tvbox_coach/tutorials/"
           }
         ]
       },

@@ -10,7 +10,7 @@ export interface ToolMeta {
 
 export const tools: ToolMeta[] = [
   {
-    path: '/tools/parse',
+    path: '/tvbox_coach/tools/parse',
     name: '接口解析与格式化',
     icon: '🔍',
     iconName: 'lucide:file-json',
@@ -18,7 +18,7 @@ export const tools: ToolMeta[] = [
     tags: ['JSON', '配置'],
   },
   {
-    path: '/tools/live-convert',
+    path: '/tvbox_coach/tools/live-convert',
     name: '直播源转换',
     icon: '🔁',
     iconName: 'lucide:repeat',
@@ -26,7 +26,7 @@ export const tools: ToolMeta[] = [
     tags: ['m3u', 'txt', '直播源'],
   },
   {
-    path: '/tools/check',
+    path: '/tvbox_coach/tools/check',
     name: '接口测活',
     icon: '🩺',
     iconName: 'lucide:stethoscope',

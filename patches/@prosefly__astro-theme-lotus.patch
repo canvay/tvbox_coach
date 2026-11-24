@@ -1,0 +1,121 @@
+diff --git a/src/components/theme/SiteBrand.astro b/src/components/theme/SiteBrand.astro
+index 190b536f7599eeac537cd909da7f9fb29e66d77f..dbc42eb3cabec5bcd48a47bfcbfcc5e63d4f60a3 100644
+--- a/src/components/theme/SiteBrand.astro
++++ b/src/components/theme/SiteBrand.astro
+@@ -18,7 +18,16 @@ const {
+ } = Astro.props;
+ const themeConfig = rawThemeConfig as LotusThemeConfig;
+ const logo = themeConfig.logo;
+-const logoHref = !logo || typeof logo === 'string' ? '/' : (logo.href ?? '/');
++// Respect the deployment base (e.g. GitHub Pages /<repo>/) for the brand link.
++const deployBase = (import.meta.env?.BASE_URL ?? '/').replace(/\/+$/, '');
++const logoHref = withDeployBase(!logo || typeof logo === 'string' ? '/' : (logo.href ?? '/'));
++
++function withDeployBase(href: string): string {
++  if (!deployBase || href.startsWith(`${deployBase}/`) || /^[a-z][a-z\d+.-]*:/i.test(href) || href.startsWith('//')) {
++    return href;
++  }
++  return href === '/' ? `${deployBase}/` : `${deployBase}${href}`;
++}
+ const logoLight = typeof logo === 'string' ? logo : logo?.light;
+ const logoDark = typeof logo === 'string' ? undefined : logo?.dark;
+ const logoVariant = typeof logo === 'object' ? logo.variant ?? 'mark' : 'mark';
+diff --git a/src/lib/i18n.ts b/src/lib/i18n.ts
+index dd587a80a4aee8f10e69440618e8fb80cbc28807..fb12352ddcaf0cbab4eaf226c7f8a2c9953f01df 100644
+--- a/src/lib/i18n.ts
++++ b/src/lib/i18n.ts
+@@ -1,5 +1,20 @@
+ import type { LotusThemeConfig } from './theme';
+ 
++/**
++ * Prepend the Astro deployment base (import.meta.env.BASE_URL) so that
++ * theme-generated hrefs work when the site is served under a sub-path
++ * (e.g. GitHub Pages project sites at /<repo>/).
++ */
++function withDeployBase(href: string): string {
++  const base = (import.meta.env?.BASE_URL ?? '/').replace(/\/+$/, '');
++
++  if (!base || href === '/' || href.startsWith(`${base}/`) || href.startsWith('//')) {
++    return href;
++  }
++
++  return href === '' ? `${base}/` : `${base}${href}`;
++}
++
+ export const ROOT_LOCALE = 'root';
+ 
+ export interface NormalizedLocale {
+@@ -188,7 +203,7 @@ export function getLocalizedHref(
+   ].filter(Boolean).join('/');
+   const basePath = config.docsBase === '/' ? '' : config.docsBase.replace(/\/$/, '');
+ 
+-  return routeSlug ? `${basePath}/${routeSlug}/` : `${basePath}/`;
++  return withDeployBase(routeSlug ? `${basePath}/${routeSlug}/` : `${basePath}/`);
+ }
+ 
+ export function getLocalizedMarkdownHref(
+@@ -204,7 +219,7 @@ export function getLocalizedMarkdownHref(
+   ].filter(Boolean).join('/');
+   const basePath = config.docsBase === '/' ? '' : config.docsBase.replace(/\/$/, '');
+ 
+-  return `${basePath}/${routeSlug}.md`;
++  return withDeployBase(`${basePath}/${routeSlug}.md`);
+ }
+ 
+ export function getLocalizedSearchHref(config: LotusThemeConfig, localeKey?: string): string {
+@@ -212,7 +227,7 @@ export function getLocalizedSearchHref(config: LotusThemeConfig, localeKey?: str
+   const basePath = config.docsBase === '/' ? '' : config.docsBase.replace(/\/$/, '');
+   const routeSlug = [locale.pathPrefix, 'search.json'].filter(Boolean).join('/');
+ 
+-  return `${basePath}/${routeSlug}`;
++  return withDeployBase(`${basePath}/${routeSlug}`);
+ }
+ 
+ export function localizeDocsHref(
+diff --git a/src/middleware.ts b/src/middleware.ts
+index c630bbdde3c8b30d945204ec5eb0367c7420b229..4256f5e1075c9564c347aeb4bfee2504aef9ebde 100644
+--- a/src/middleware.ts
++++ b/src/middleware.ts
+@@ -28,7 +28,14 @@ function getRouteSlug(pathname: string, docsBasePath: string): string {
+ export const onRequest: MiddlewareHandler = async (context, next) => {
+   const themeConfig = rawThemeConfig as LotusThemeConfig;
+   const docsBasePath = normalizeDocsBasePath(themeConfig.docsBase);
+-  const routeSlug = getRouteSlug(context.url.pathname, docsBasePath);
++  // Strip the deployment base (e.g. GitHub Pages /<repo>/) before docs-base matching.
++  const deployBase = (import.meta.env?.BASE_URL ?? '/').replace(/\/+$/, '');
++  const rawPathname = context.url.pathname;
++  const pathname =
++    deployBase && rawPathname.startsWith(`${deployBase}/`)
++      ? rawPathname.slice(deployBase.length) || '/'
++      : rawPathname;
++  const routeSlug = getRouteSlug(pathname, docsBasePath);
+   const locale = getLocaleFromRouteSlug(themeConfig, routeSlug);
+   const locals = context.locals;
+ 
+diff --git a/src/routes/404.astro b/src/routes/404.astro
+index 699e6374a61aac25694cd78c55ebc5443b94e8a5..80365fedeaaf230476ee6d49d679784072209af1 100644
+--- a/src/routes/404.astro
++++ b/src/routes/404.astro
+@@ -8,7 +8,12 @@ import type { LotusThemeConfig } from '../lib/theme';
+ 
+ const themeConfig = rawThemeConfig as LotusThemeConfig;
+ const docsBasePath = normalizeDocsBasePath(themeConfig.docsBase);
+-const docsHref = docsBasePath === '/' ? '/' : `${docsBasePath}/`;
++// Prefix static links with the deployment base (e.g. GitHub Pages /<repo>/).
++const deployBase = (import.meta.env?.BASE_URL ?? '/').replace(/\/+$/, '');
++const withDeployBase = (href: string) =>
++  !deployBase || href === '/' || href.startsWith(`${deployBase}/`) ? (href === '/' ? `${deployBase}/` : href) : `${deployBase}${href}`;
++const docsHref = withDeployBase(docsBasePath === '/' ? '/' : `${docsBasePath}/`);
++const homeHref = withDeployBase('/');
+ const t = Astro.locals.t;
+ const currentLocale = t.locale();
+ 
+@@ -41,7 +46,7 @@ Astro.response.status = 404;
+         </a>
+         <a
+           class="lotus-focus-ring inline-flex h-10 items-center justify-center rounded-(--lotus-radius-md) bg-(--lotus-surface) px-4 text-sm font-medium text-(--lotus-text-strong) transition-colors hover:bg-(--lotus-accent-soft)"
+-          href="/"
++          href={homeHref}
+         >
+           {t('404.backHome')}
+         </a>

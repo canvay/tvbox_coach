@@ -1,0 +1,2 @@
+patchedDependencies:
+  '@prosefly/astro-theme-lotus': patches/@prosefly__astro-theme-lotus.patch

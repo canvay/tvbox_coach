@@ -33,33 +33,33 @@ const steps = [
   title="TVBox Coach — TVBox 使用教程与工具箱"
   description="TVBox 配置说明、核心概念介绍，以及一些帮助使用的浏览器端小工具。"
 >
-  <SiteHeader currentPath="/" surface search={false} />
+  <SiteHeader surface search={false} />
 
   <main>
     <Hero
       title="玩转 TVBox，从这里开始"
       description="TVBox 配置说明、核心概念介绍，以及一些帮助使用的浏览器端小工具。"
     >
-      <a slot="title" href="/" class="text-(--lotus-text-strong)">
+      <a slot="title" href="/tvbox_coach/" class="text-(--lotus-text-strong)">
         玩转 TVBox，<span class="text-(--lotus-accent)">从这里开始</span>
       </a>
       <a
         slot="actions"
-        href="/tutorials/"
+        href="/tvbox_coach/tutorials/"
         class="inline-flex min-h-10 items-center rounded-lg border border-(--lotus-border-muted) px-5 text-sm font-medium text-(--lotus-text-strong) transition-colors hover:bg-(--lotus-surface)"
       >
         阅读教程
       </a>
       <a
         slot="actions"
-        href="/tools/"
+        href="/tvbox_coach/tools/"
         class="inline-flex min-h-10 items-center rounded-lg bg-(--lotus-accent) px-5 text-sm font-medium text-(--lotus-accent-contrast) transition-opacity hover:opacity-90"
       >
         进入工具箱
       </a>
       <div slot="visual">
         <img
-          src="/images/tvbox-ui.jpg"
+          src="/tvbox_coach/images/tvbox-ui.jpg"
           alt="TVBox 主界面示意：推荐、站点、直播等入口"
           width="600"
           height="270"
@@ -76,7 +76,7 @@ const steps = [
           TVBox 是什么？
         </h2>
         <a
-          href="/tutorials/intro/"
+          href="/tvbox_coach/tutorials/intro/"
           class="shrink-0 text-sm font-medium text-(--lotus-accent) hover:underline"
         >
           查看完整介绍 →
@@ -112,7 +112,7 @@ const steps = [
           class="group flex shrink-0 flex-col items-center gap-3"
         >
           <img
-            src="/images/tvbox-app-icon.png"
+            src="/tvbox_coach/images/tvbox-app-icon.png"
             alt="TVBox 应用图标"
             width="160"
             height="160"
@@ -153,7 +153,7 @@ const steps = [
           如何配置 TVBox 源？
         </h2>
         <a
-          href="/tutorials/config-setup/"
+          href="/tvbox_coach/tutorials/config-setup/"
           class="shrink-0 text-sm font-medium text-(--lotus-accent) hover:underline"
         >
           详细教程 →
@@ -180,7 +180,7 @@ const steps = [
     <PageSection padding="lg" class="border-t border-(--lotus-border-subtle)">
       <div class="flex items-baseline justify-between gap-4">
         <h2 class="text-3xl font-semibold tracking-tight text-(--lotus-text-strong)">实用工具</h2>
-        <a href="/tools/" class="shrink-0 text-sm font-medium text-(--lotus-accent) hover:underline">
+        <a href="/tvbox_coach/tools/" class="shrink-0 text-sm font-medium text-(--lotus-accent) hover:underline">
           查看全部 →
         </a>
       </div>
@@ -205,7 +205,7 @@ const steps = [
           更多 TVBox 知识
         </h2>
         <a
-          href="/tutorials/"
+          href="/tvbox_coach/tutorials/"
           class="shrink-0 text-sm font-medium text-(--lotus-accent) hover:underline"
         >
           浏览全部教程 →
@@ -213,19 +213,19 @@ const steps = [
       </div>
       <FeatureGrid columns={3} class="mt-6">
         <FeatureCard
-          href="/tutorials/live-source/"
+          href="/tvbox_coach/tutorials/live-source/"
           icon="lucide:radio-tower"
           title="直播源设置"
           description="认识 txt（#genre#）与 m3u 两种直播源格式，学会配置、转换和自制直播源。"
         />
         <FeatureCard
-          href="/tutorials/faq/"
+          href="/tvbox_coach/tutorials/faq/"
           icon="lucide:life-buoy"
           title="常见问题排查"
           description="集中回答 TVBox 使用中的高频问题：配置加载失败、播放卡顿、直播没台、应用闪退等。"
         />
         <FeatureCard
-          href="/tutorials/"
+          href="/tvbox_coach/tutorials/"
           icon="lucide:book-open"
           title="全部教程"
           description="入门、配置、直播、FAQ——按顺序阅读，系统掌握 TVBox 的使用方法。"
