@@ -82,6 +82,16 @@
             "external": true
           }
         ]
+      },
+      {
+        "title": "支持作者",
+        "links": [
+          {
+            "label": "❤️ 在爱发电赞助",
+            "href": "https://afdian.com/a/canvay",
+            "external": true
+          }
+        ]
       }
     ]
   }
