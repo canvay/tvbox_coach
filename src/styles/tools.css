@@ -1,0 +1,234 @@
+/* 工具页表单与结果面板 —— 基于主题的 --lotus-* 令牌 */
+
+.tool-page {
+  margin: 0 auto;
+  max-width: 860px;
+}
+
+.field-label {
+  display: block;
+  margin: 20px 0 8px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--lotus-text);
+}
+
+textarea,
+input[type="text"],
+input[type="url"],
+input[type="number"],
+select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--lotus-border-muted);
+  border-radius: var(--lotus-radius-md);
+  background: var(--lotus-background);
+  color: var(--lotus-text-strong);
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  transition:
+    border-color 0.16s cubic-bezier(0.32, 0.72, 0, 1),
+    box-shadow 0.16s cubic-bezier(0.32, 0.72, 0, 1);
+}
+textarea {
+  font-family: var(--lotus-font-mono);
+  font-size: 13px;
+  line-height: 1.6;
+  resize: vertical;
+}
+textarea:focus,
+input:focus,
+select:focus {
+  border-color: var(--lotus-accent);
+  box-shadow: 0 0 0 3px var(--lotus-accent-soft);
+}
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.btn {
+  min-height: 2.25rem;
+  padding: 0 16px;
+  border: 1px solid transparent;
+  border-radius: var(--lotus-radius-md);
+  font-size: 14px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition:
+    background 0.16s cubic-bezier(0.32, 0.72, 0, 1),
+    color 0.16s cubic-bezier(0.32, 0.72, 0, 1),
+    border-color 0.16s cubic-bezier(0.32, 0.72, 0, 1),
+    opacity 0.16s cubic-bezier(0.32, 0.72, 0, 1);
+}
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--lotus-accent);
+  color: var(--lotus-accent-contrast);
+}
+.btn-primary:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--lotus-text-strong);
+  border-color: var(--lotus-border-muted);
+}
+.btn-ghost:hover:not(:disabled) {
+  background: var(--lotus-surface);
+}
+
+.hint {
+  font-size: 13px;
+  color: var(--lotus-text-muted);
+}
+
+/* 提示条 */
+.alert {
+  margin-top: 18px;
+  padding: 12px 16px;
+  border-radius: var(--lotus-radius-md);
+  font-size: 14px;
+  border: 1px solid;
+}
+.alert.error {
+  background: var(--lotus-danger-soft);
+  border-color: color-mix(in oklab, var(--lotus-danger) 35%, transparent);
+  color: var(--lotus-danger-ink);
+}
+.alert.warn {
+  background: var(--lotus-warning-soft);
+  border-color: color-mix(in oklab, var(--lotus-warning) 40%, transparent);
+  color: var(--lotus-warning-ink);
+}
+.alert.info {
+  background: var(--lotus-info-soft);
+  border-color: color-mix(in oklab, var(--lotus-info) 35%, transparent);
+  color: var(--lotus-info-ink);
+}
+.alert:empty {
+  display: none;
+}
+
+/* 结果面板 */
+.result-panel {
+  margin-top: 28px;
+  background: var(--lotus-background);
+  border: 1px solid var(--lotus-border-subtle);
+  border-radius: var(--lotus-radius-lg);
+  overflow: hidden;
+}
+
+.result-panel .panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--lotus-border-subtle);
+  font-weight: 600;
+  font-size: 14.5px;
+  color: var(--lotus-text-strong);
+}
+
+pre.output {
+  margin: 0;
+  padding: 18px;
+  max-height: 480px;
+  overflow: auto;
+  font-family: var(--lotus-font-mono);
+  font-size: 12.5px;
+  line-height: 1.55;
+  white-space: pre;
+  background: var(--lotus-surface);
+  border-radius: 0;
+}
+
+/* 摘要统计 */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 12px;
+  padding: 18px;
+}
+
+.stat {
+  padding: 14px 16px;
+  border: 1px solid var(--lotus-border-subtle);
+  border-radius: var(--lotus-radius-md);
+  background: var(--lotus-surface);
+}
+.stat .k {
+  font-size: 12px;
+  color: var(--lotus-text-muted);
+  letter-spacing: 0.02em;
+}
+.stat .v {
+  margin-top: 4px;
+  font-size: 18px;
+  font-weight: 600;
+  word-break: break-all;
+  color: var(--lotus-text-strong);
+}
+.stat .v.small {
+  font-size: 13px;
+  font-weight: 500;
+  font-family: var(--lotus-font-mono);
+}
+
+/* 表格 */
+.table-wrap {
+  overflow-x: auto;
+}
+
+table.data {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+table.data th,
+table.data td {
+  padding: 10px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--lotus-border-subtle);
+  vertical-align: top;
+}
+table.data th {
+  color: var(--lotus-text-muted);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: var(--lotus-surface);
+  white-space: nowrap;
+}
+table.data td.url {
+  font-family: var(--lotus-font-mono);
+  font-size: 12.5px;
+  max-width: 380px;
+  word-break: break-all;
+}
+
+.status-valid {
+  color: var(--lotus-success-ink);
+  font-weight: 600;
+}
+.status-reachable {
+  color: var(--lotus-warning-ink);
+  font-weight: 600;
+}
+.status-unreachable {
+  color: var(--lotus-danger-ink);
+  font-weight: 600;
+}

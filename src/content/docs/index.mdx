@@ -1,0 +1,51 @@
+---
+title: 使用教程
+description: 从零开始的 TVBox 使用指南，循序渐进，一看就懂。
+template: splash
+pagefind: false
+sidebar:
+  hidden: true
+hero:
+  title: TVBox 使用教程
+  tagline: 从认识、安装到配置，四页跑通 TVBox。
+  actions:
+    - text: 开始入门
+      link: /tutorials/intro/
+      variant: primary
+      icon: lucide:rocket
+    - text: 前往工具箱
+      link: /tools/
+      variant: secondary
+      icon: lucide:wrench
+---
+
+import { FeatureCard, FeatureGrid } from '@prosefly/astro-theme-lotus/blocks';
+
+## 教程目录
+
+<FeatureGrid columns={2}>
+  <FeatureCard
+    href="/tutorials/intro/"
+    icon="lucide:info"
+    title="简介"
+    description="TVBox 是什么、基本概念，以及常见分支客户端的区别。"
+  />
+  <FeatureCard
+    href="/tutorials/install/"
+    icon="lucide:download"
+    title="安装"
+    description="获取安装包、装进电视盒子，以及装好后的基本操作。"
+  />
+  <FeatureCard
+    href="/tutorials/config-setup/"
+    icon="lucide:settings"
+    title="配置"
+    description="配置地址是什么、单仓与多仓的区别、如何填入与更新配置。"
+  />
+  <FeatureCard
+    href="/tutorials/faq/"
+    icon="lucide:life-buoy"
+    title="常见问题"
+    description="配置加载失败、播放卡顿、直播没台等高频问题的排查方法。"
+  />
+</FeatureGrid>

@@ -1,0 +1,19 @@
+{
+  "name": "tvbox-coach",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@12.18.0",
+  "version": "0.1.0",
+  "description": "TVBox 使用教程与浏览器端工具箱（Astro + Astro Theme Lotus 静态站点）",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@prosefly/astro-components": "^0.8.4",
+    "@prosefly/astro-theme-lotus": "^0.9.1",
+    "astro": "^7.4.13"
+  }
+}

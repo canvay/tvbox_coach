@@ -1,0 +1,88 @@
+{
+  "$schema": "https://prosefly.dev/schema/lotus.json",
+  "name": "TVBox Coach",
+  "description": "TVBox 配置说明、核心概念介绍，以及一些帮助使用的浏览器端小工具。",
+  "favicon": "/favicon.svg",
+  "logo": "/favicon.svg",
+  "docsBase": "/tutorials",
+  "siteNav": [
+    {
+      "label": "首页",
+      "href": "/"
+    },
+    {
+      "label": "工具箱",
+      "href": "/tools/"
+    },
+    {
+      "label": "使用教程",
+      "href": "/tutorials/"
+    }
+  ],
+  "socials": [
+    {
+      "label": "GitHub",
+      "href": "https://github.com/takagen99/Box",
+      "external": true,
+      "icon": "github"
+    }
+  ],
+  "search": {
+    "provider": "local"
+  },
+  "docsNav": [
+    {
+      "label": "使用教程",
+      "slug": "tutorials",
+      "icon": "lucide:book-open",
+      "items": [
+        {
+          "label": "入门",
+          "items": ["intro", "install", "config-setup", "faq"]
+        }
+      ]
+    }
+  ],
+  "footer": {
+    "copyright": "本站内容仅作技术学习交流之用，请支持正版影视资源。",
+    "sections": [
+      {
+        "title": "站点导航",
+        "links": [
+          {
+            "label": "首页",
+            "href": "/"
+          },
+          {
+            "label": "工具箱",
+            "href": "/tools/"
+          },
+          {
+            "label": "使用教程",
+            "href": "/tutorials/"
+          }
+        ]
+      },
+      {
+        "title": "TVBox 资源",
+        "links": [
+          {
+            "label": "下载地址（夸克网盘）",
+            "href": "https://pan.quark.cn/s/f0a65d6cad33",
+            "external": true
+          },
+          {
+            "label": "GitHub 仓库",
+            "href": "https://github.com/takagen99/Box",
+            "external": true
+          },
+          {
+            "label": "TVBox 发布站（非官方）",
+            "href": "https://tvbox.clbug.com/",
+            "external": true
+          }
+        ]
+      }
+    ]
+  }
+}

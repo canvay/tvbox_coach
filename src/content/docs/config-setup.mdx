@@ -1,0 +1,59 @@
+---
+title: 配置
+description: 配置地址是什么、单仓与多仓的区别、如何填入与更新配置，以及配置失效时的排查思路。
+sidebar:
+  order: 3
+---
+
+
+「接口」是 TVBox 的配置入口，格式上就是一段 JSON。本文讲清楚它长什么样、怎么填、坏了怎么修。
+
+## 一、配置长什么样
+
+一个典型的**单仓配置**（直接包含站点）：
+
+```json
+{
+  "spider": "./jar/spider.jar;md5;xxxx",
+  "wallpaper": "https://example.tv/wallpaper.jpg",
+  "sites": [
+    { "key": "site_a", "name": "站点A", "type": 3, "api": "csp_SiteA" }
+  ],
+  "lives": [
+    { "name": "直播", "type": 0, "url": "https://example.tv/live.txt" }
+  ]
+}
+```
+
+**多仓配置**则像一个「目录」，里面只有子仓列表，用户可以在应用内切换：
+
+```json
+{
+  "storeHouse": [
+    { "sourceName": "仓库一", "sourceUrl": "https://example.tv/repo1.json" },
+    { "sourceName": "仓库二", "sourceUrl": "https://example.tv/repo2.json" }
+  ]
+}
+```
+
+## 二、怎么填入
+
+1. 复制接口地址（以 `.json` 结尾或返回 JSON 的链接均可）。
+2. TVBox → 设置 → 配置地址 → 粘贴 → 确定。
+3. 返回首页等待加载。第一次加载会下载 spider jar，稍慢属于正常。
+
+**懒人技巧**：应用设置里一般有「扫码」入口，手机端打开接口页面扫码即可，免去遥控器打字。
+
+## 三、配置失效的排查步骤
+
+1. **电脑浏览器打开接口地址**，看是否还能显示 JSON 内容（而不是 404 / 空白）。
+2. 内容还在但 TVBox 加载失败 → 可能是 spider jar 失效，换个接口试试。
+3. 用本站 [接口解析与格式化](/tools/parse) 工具粘贴配置内容，检查 `sites` 是否为空、JSON 是否合法。
+4. 接口彻底失效 → 到接口分享社区找新接口，或自己动手改造（进阶）。
+
+> 💡 接口是社区自发维护的，**失效是常态**，多备几个地址轮换是使用 TVBox 的基本修养。
+
+## 四、安全提醒
+
+- 不要填入来源不明的接口：配置可以指定任意 spider jar，存在风险。
+- 不使用任何「收费接口」「会员接口」——官方本体永远是免费的。

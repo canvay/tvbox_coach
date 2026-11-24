@@ -1,0 +1,50 @@
+---
+import ToolLayout from '../../components/tools/ToolLayout.astro';
+import '../../styles/tools.css';
+---
+
+<ToolLayout
+  title="🔁 直播源转换"
+  description="m3u 与 txt（分类,#genre#）两种直播源格式互转，支持按地址去重与分组统计，一键复制或下载。全部本地处理。"
+  currentPath="/tools/live-convert/"
+>
+  <div class="tool-page">
+    <label class="field-label" for="live-input">直播源内容（自动识别格式）</label>
+    <textarea id="live-input" rows="10" placeholder="粘贴 m3u 或 txt 直播源内容…"></textarea>
+    <div class="btn-row">
+      <label class="field-label" style="margin: 0" for="live-target">转换为</label>
+      <select id="live-target" style="width: 130px">
+        <option value="txt">txt（#genre#）</option>
+        <option value="m3u">m3u</option>
+      </select>
+      <label class="hint" style="display: flex; align-items: center; gap: 6px">
+        <input id="live-dedupe" type="checkbox" checked />
+        按地址去重
+      </label>
+      <button id="btn-convert" class="btn btn-primary">转换</button>
+      <button id="btn-sample" class="btn btn-ghost">填入示例</button>
+      <button id="btn-clear" class="btn btn-ghost">清空</button>
+    </div>
+
+    <div id="alert-error" class="alert error"></div>
+    <div id="alert-notice" class="alert info"></div>
+
+    <div id="stats-panel" class="result-panel" hidden>
+      <div class="panel-head"><span id="stats-title">分组统计</span></div>
+      <div id="stats" class="stat-grid"></div>
+    </div>
+
+    <div id="result-panel" class="result-panel" hidden>
+      <div class="panel-head">
+        <span>转换结果</span>
+        <div style="display: flex; gap: 8px">
+          <button id="btn-copy" class="btn btn-ghost">复制</button>
+          <button id="btn-download" class="btn btn-ghost">下载</button>
+        </div>
+      </div>
+      <pre class="output" id="output"></pre>
+    </div>
+  </div>
+</ToolLayout>
+
+<script src="../../scripts/live-convert.ts"></script>

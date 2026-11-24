@@ -1,0 +1,55 @@
+---
+title: 直播源设置
+description: 认识 txt（#genre#）与 m3u 两种直播源格式，学会配置、转换和自制直播源。
+sidebar:
+  hidden: true
+---
+
+
+直播源就是「频道名 + 播放地址」的清单，常见两种格式。TVBox 两种都支持。
+
+## 一、txt 格式（TVBox 最常用）
+
+```text
+央视频道,#genre#
+CCTV-1,http://example.tv/cctv1.m3u8
+CCTV-5,http://example.tv/cctv5.m3u8
+
+卫视频道,#genre#
+东方卫视,http://example.tv/dftv.m3u8
+```
+
+规则很简单：
+
+- `分类名,#genre#` 开启一个分组；
+- 之后每行 `频道名,播放地址`；
+- 一个频道可以挂多个地址，用 `#` 分隔：`CCTV-1,http://a.m3u8#http://b.m3u8`，播放失败自动切换。
+
+## 二、m3u 格式
+
+```text
+#EXTM3U
+#EXTINF:-1 tvg-name="CCTV1" group-title="央视频道",CCTV-1 综合
+http://example.tv/cctv1.m3u8
+```
+
+m3u 信息更丰富（可带台标 `tvg-logo`、分组 `group-title`），但写起来冗长。
+
+## 三、两种格式互转
+
+不用手改！用本站 [直播源转换](/tools/live-convert) 工具：
+
+1. 粘贴任意格式直播源，自动识别；
+2. 选择目标格式，一键转换；
+3. 支持**按地址去重**和**分组统计**，转换完直接复制或下载。
+
+## 四、直播源怎么挂到 TVBox
+
+- **方式一**：接口配置的 `lives` 字段里填直播源地址（见 [接口配置教程](/tutorials/config-setup)）。
+- **方式二**：应用「设置 → 直播配置」单独填入直播源地址。
+
+## 五、自制直播源的渠道
+
+- 运营商 IPTV 组播地址转 HTTP（需软路由 / udpxy，进阶玩法）；
+- 各地网友维护的公开频道列表（时效性强，需定期更新）；
+- 用本站 [接口测活](/tools/check) 工具批量检测地址是否存活，剔除失效频道。

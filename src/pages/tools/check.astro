@@ -1,0 +1,50 @@
+---
+import ToolLayout from '../../components/tools/ToolLayout.astro';
+import '../../styles/tools.css';
+---
+
+<ToolLayout
+  title="🩺 接口测活"
+  description="批量检测接口地址可用性：是否可达、返回是否为有效 JSON，并发探测带耗时统计。因浏览器跨域限制，部分接口只能确认「可达」而无法校验内容。"
+  currentPath="/tools/check/"
+>
+  <div class="tool-page">
+    <label class="field-label" for="check-input">接口地址列表</label>
+    <textarea
+      id="check-input"
+      rows="8"
+      placeholder="# 每行一个地址&#10;示例接口,https://example.tv/config.json&#10;https://example2.tv/config.json"
+    ></textarea>
+    <div class="btn-row">
+      <label class="hint" for="check-conc">并发数</label>
+      <input id="check-conc" type="number" min="1" max="20" value="5" style="width: 70px" />
+      <label class="hint" for="check-timeout">超时（秒）</label>
+      <input id="check-timeout" type="number" min="1" max="60" value="8" style="width: 70px" />
+      <button id="btn-start" class="btn btn-primary">开始检测</button>
+      <button id="btn-stop" class="btn btn-ghost">停止</button>
+      <button id="btn-sample" class="btn btn-ghost">填入示例</button>
+    </div>
+
+    <div id="progress" class="alert info"></div>
+
+    <div id="result-panel" class="result-panel" hidden>
+      <div class="panel-head"><span>检测结果</span></div>
+      <div class="table-wrap">
+        <table class="data">
+          <thead>
+            <tr>
+              <th>备注</th>
+              <th>地址</th>
+              <th>状态</th>
+              <th>耗时</th>
+              <th>详情</th>
+            </tr>
+          </thead>
+          <tbody id="result-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</ToolLayout>
+
+<script src="../../scripts/check.ts"></script>

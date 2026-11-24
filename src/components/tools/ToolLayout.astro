@@ -1,0 +1,113 @@
+---
+import { BaseLayout, SiteFooter, SiteHeader } from '@prosefly/astro-theme-lotus/layouts';
+import { Sidebar } from '@prosefly/astro-theme-lotus/components';
+import { tools } from '../../data/tools';
+
+/** 与主题 DocsSidebarNav 结构兼容的最小类型 */
+interface ToolSidebarNav {
+  links: { label: string; href?: string; external?: boolean; icon?: string }[];
+  groups: { title: string; items: { label: string; href?: string; external?: boolean; icon?: string }[] }[];
+}
+
+interface Props {
+  title: string;
+  description?: string;
+  /** 当前工具路径，如 /tools/parse/，用于侧边栏高亮 */
+  currentPath?: string;
+  /** 是否显示工具导航（侧栏 + 移动端胶囊），总览页可不带 */
+  sidebar?: boolean;
+}
+
+const { title, description, currentPath = Astro.url.pathname, sidebar = true } = Astro.props;
+
+const normalizedPath = currentPath.endsWith('/') ? currentPath : `${currentPath}/`;
+
+const toolSidebar: ToolSidebarNav = {
+  links: [
+    {
+      label: '工具箱总览',
+      href: '/tools/',
+      icon: 'lucide:wrench',
+    },
+  ],
+  groups: [
+    {
+      title: '全部工具',
+      items: tools.map((tool) => ({
+        label: tool.name,
+        href: tool.path,
+        icon: tool.iconName,
+      })),
+    },
+  ],
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <SiteHeader currentPath={normalizedPath} surface search={false} />
+
+  <main class="pb-16">
+    <div
+      class:list={[
+        'mx-auto grid max-w-screen-2xl grid-cols-1 gap-y-10 px-5 sm:px-6',
+        sidebar &&
+          'lg:grid-cols-[var(--lotus-sidebar-width)_minmax(0,var(--lotus-content-width))] lg:gap-x-10',
+      ]}
+    >
+      {
+        sidebar && (
+          <aside class="hidden lg:block">
+            <div class="sticky top-(--lotus-docs-chrome-height)">
+              <Sidebar currentPath={normalizedPath} sidebar={toolSidebar} />
+            </div>
+          </aside>
+        )
+      }
+
+      <article
+        class:list={['mx-auto w-full min-w-0 pt-8 pb-10', sidebar ? 'max-w-4xl' : 'max-w-3xl']}
+      >
+        {
+          sidebar && (
+            <nav aria-label="工具导航" class="mb-8 flex gap-2 overflow-x-auto pb-2 lg:hidden">
+              {tools.map((tool) => {
+                const active = normalizedPath === `${tool.path}/`;
+                return (
+                  <a
+                    href={tool.path}
+                    aria-current={active ? 'page' : undefined}
+                    class:list={[
+                      'inline-flex shrink-0 items-center rounded-full border px-3.5 py-1.5 text-[13.5px] font-medium transition-colors',
+                      active
+                        ? 'border-(--lotus-accent) bg-(--lotus-accent-soft) text-(--lotus-accent)'
+                        : 'border-(--lotus-border-muted) text-(--lotus-text-muted) hover:bg-(--lotus-surface) hover:text-(--lotus-text-strong)',
+                    ]}
+                  >
+                    {tool.name}
+                  </a>
+                );
+              })}
+            </nav>
+          )
+        }
+
+        <header class="mb-8 border-b border-(--lotus-border-subtle) pb-8">
+          <h1 class="text-4xl font-semibold leading-tight tracking-normal text-(--lotus-text-strong)">
+            {title}
+          </h1>
+          {description && (
+            <p class="mt-4 text-base leading-7 text-(--lotus-text-muted)">
+              {description}
+            </p>
+          )}
+        </header>
+
+        <div class="prose max-w-none">
+          <slot />
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <SiteFooter />
+</BaseLayout>

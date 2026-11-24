@@ -1,0 +1,83 @@
+---
+import PageActions from 'virtual:prosefly/lotus/components/PageActions';
+import rawThemeConfig from 'virtual:prosefly/lotus/config';
+
+interface Props {
+  title: string;
+  description?: string;
+  sectionTitle?: string;
+  pageActions?: { text: string; link: string; icon?: string }[];
+  pageUrl: string;
+  markdownUrl: string;
+}
+
+const {
+  title,
+  description,
+  sectionTitle,
+  pageActions = [],
+  pageUrl,
+  markdownUrl,
+} = Astro.props;
+const themeConfig = rawThemeConfig as { name: string };
+
+// 面包屑：首页 → 使用教程 → 分组 → 当前页
+const breadcrumbs: { label: string; href?: string }[] = [
+  { label: themeConfig.name, href: '/' },
+  { label: '使用教程', href: '/tutorials/' },
+];
+
+if (sectionTitle) {
+  breadcrumbs.push({ label: sectionTitle });
+}
+
+breadcrumbs.push({ label: title });
+---
+
+<header class="lotus-border-subtle border-b pb-8">
+  <nav
+    aria-label="Breadcrumb"
+    class="mb-5 flex flex-wrap items-center gap-x-2 text-[13.5px] leading-6 text-(--lotus-text-muted)"
+    data-pagefind-ignore
+  >
+    {breadcrumbs.map((crumb, index) => (
+      <>
+        {index > 0 && <span aria-hidden="true" class="text-(--lotus-text-subtle)">/</span>}
+        {crumb.href ? (
+          <a
+            href={crumb.href}
+            class="transition-colors hover:text-(--lotus-text-strong)"
+          >
+            {crumb.label}
+          </a>
+        ) : (
+          <span aria-current={index === breadcrumbs.length - 1 ? 'page' : undefined} class={index === breadcrumbs.length - 1 ? 'text-(--lotus-text-strong)' : undefined}>
+            {crumb.label}
+          </span>
+        )}
+      </>
+    ))}
+  </nav>
+  <div class="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
+    <div class="min-w-0">
+      <h1 class="text-3xl font-semibold leading-tight text-(--lotus-text-strong) sm:text-4xl">
+        {title}
+      </h1>
+      {description && (
+        <p class="mt-4 max-w-3xl text-base leading-7 text-(--lotus-text-subtle) sm:text-lg">
+          {description}
+        </p>
+      )}
+    </div>
+    {pageActions.length > 0 && (
+      <div class="shrink-0 sm:pt-1">
+        <PageActions
+          actions={pageActions}
+          markdownUrl={markdownUrl}
+          pageUrl={pageUrl}
+          title={title}
+        />
+      </div>
+    )}
+  </div>
+</header>
